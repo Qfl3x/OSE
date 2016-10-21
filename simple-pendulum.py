@@ -22,7 +22,7 @@ class U:    #Potential nergy
         pre_made_forces={       #Common forces, only weight and spring force for now.
             'p':(1/2)*m*g*h,
             'el':(1/2)*k*x**2}
-        print(self.forces)
+        
         for force in self.forces:
             print('checking for ' + force)
             if force in pre_made_forces:
@@ -47,7 +47,7 @@ class T:    #Kinetic energy
         
         
     
-    def calc(self):
+    def calc(self): #Calculating the expression of the kinetic energy
         t=symbols('t')
         f=Function('f')
         
@@ -55,10 +55,7 @@ class T:    #Kinetic energy
         xd=diff(self.x,f(t)) * Derivative(f(t),t)
         yd=diff(self.y,f(t)) * Derivative(f(t),t)
         zd=diff(self.z,f(t)) * Derivative(f(t),t)
-        print(self.m)
-        print(type(self.m))
-        print(xd)
-        print(1*(xd**2))
+
           
         T=(1/2)*self.m*(xd**2+yd**2+zd**2)
         
@@ -66,7 +63,7 @@ class T:    #Kinetic energy
         return T
         
     
-class ode:
+class ode:  #Main class, calculates the ODE
     def __init__(self,forces,m,k,x,y,z,xx,hh):
         t=symbols('t')
         u=U(forces,m,k,xx,hh)
@@ -78,10 +75,7 @@ class ode:
         print(self.L)
     def calc(self):
         f=Function('f')
-        expr = 1.0*cos(f(t))**2*Derivative(f(t), t)**2 + 29.4*cos(f(t))
-        print((self.L)==expr)
-        f=Function('f')        
-        print(type(f))        
+       
         de = diff(self.L,Derivative(f(t),t))
         de=diff(de,t)
         dw=diff(self.L,f(t))
