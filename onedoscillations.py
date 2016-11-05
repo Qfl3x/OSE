@@ -62,7 +62,7 @@ class ode:
         zd = diff(self.z,t)
         #####--------############
           
-        T = (xd**2+yd**2+zd**2)*(1/2)*self.m # Expression of the Kinetic energy
+        T = (xd**2+yd**2+zd**2)*(.5)*self.m # Expression of the Kinetic energy
         T = simplify(T)
         display(T)
         ##Replace cos and sin by their approximations for low amplitudes##
@@ -80,8 +80,8 @@ class ode:
         t=symbols('t')
         m,g,h,k,x=symbols('m g h k x')  #The symbols needed in expressions
         pre_made_forces={       #Common potential forces.
-            'p':(1/2)*m*g*h,
-            'el':(1/2)*k*x**2}
+            'p':(.5)*m*g*h,
+            'el':(.5)*k*x**2}
         X=0 #Placebo value
         ###Checking each of the forces in the dictionary if their in the forces expression
         for force in self.forces:
