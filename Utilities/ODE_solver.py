@@ -35,12 +35,11 @@ def ps_periodic_csts(coef,iniconditions=(0,1)):
     delta=coef[0]
     omega=coef[1]
     omega_d=sp.sqrt(omega**2-delta**2)
-    print('OMEGA HERE',omega_d)
+    #print('OMEGA HERE',omega_d)
     expr1=sp.Eq(A*u,iniconditions[0])
     expr2=sp.Eq(-omega_d*A*v-delta*A*u,iniconditions[1])
     expr3=sp.Eq(u**2+v**2,1)
     solu=sp.solve([expr1,expr2,expr3],(A,u,v))
-    display(solu)
     if len(solu)>1:
         taken_solution=solu[1]
         uu=taken_solution[1]
@@ -60,15 +59,9 @@ def ps_periodic_csts(coef,iniconditions=(0,1)):
         elif vv!=0:
             dephasing=sp.solveset(sp.Eq(sp.sin(phi),vv),phi)
     
-    #elem_phi=next(iter(dephasing))
-    #print(elem_phi)
-    #print(taken_solution[0])
-    print('DEPHASING HERE',taken_solution[0])
     dephasing=sp.pi/round(1/float(dephasing/sp.pi))
     finalized_equation=A*sp.exp(-delta*t)*sp.cos((omega_d*t)+phi)
     finalized_equation=finalized_equation.subs({A:taken_solution[0],phi:dephasing})
-    #finalized_equation=sp.simplify(finalized_equation)
-    #print(finalized_equation)
     return ((omega_d,dephasing),finalized_equation)
     
 if __name__=='__main__':

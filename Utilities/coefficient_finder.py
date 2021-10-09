@@ -9,8 +9,9 @@ def get_coeff(expr,function):
     '''
     This function finds the delta and omega of the differential equation
     '''
-    
-    expr=expr.subs({sp.Derivative(function(t),t):x,sp.Derivative(function(t),t,t):x**2,function(t):1})
+    expr=expr.subs({sp.Derivative(function(t),(t,2)):x**2})
+    expr=expr.subs({sp.Derivative(function(t),(t,2)):x**2,sp.Derivative(function(t),(t,1)):x,function(t):1})
+    #return expr
     expr=sp.Poly(expr,x)        #Turns the differential equation into a polynomial equation of order 2
     coef= expr.all_coeffs()
     
@@ -27,7 +28,7 @@ def get_coeff(expr,function):
     delta=coef_normalized[1]/2             #Delta=b/2
     omega=sp.sqrt(coef_normalized[2])      #Omega=sqrt(c)
     
-    return (delta,omega) 
+    return (delta,omega)
     
 if __name__ == '__main__':
     exp=40*f(t) + 3*sp.Derivative(f(t), t) + 10.0*sp.Derivative(f(t), t, t)

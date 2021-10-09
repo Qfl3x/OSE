@@ -6,6 +6,7 @@ from sympy.solvers.solveset import linsolve
 from IPython.display import display
 import Utilities.coefficient_finder as coeff
 from sympy.solvers.ode import dsolve
+from sympy import Eq
 
 
 init_printing()
@@ -241,13 +242,10 @@ class ode:
         
         
         #######----------#######
-        
         delta_v,omega_v=coeff.get_coeff(eq,f)
-        display(sp.Eq(delta,delta_v))
-        display(sp.Eq(omega_0,omega_v))
-        
+
         solution,case =  dsolv.odesolver((delta_v,omega_v))
-        print
+
         #Initial conditions:
         cnd0=Eq(solution.subs({t:0}), self.x0)
         cnd1=Eq(solution.diff(t).subs({t:0}),self.xd0)
@@ -274,12 +272,13 @@ class ode:
                 f_ret=dsolv.ps_periodic_csts((delta_v,omega_v),(self.x0,self.xd0))
                 solution3=f_ret[1]
                     
-        print('The solution is :')
+        print("The solution is :")
         display(solution3)  #The Solution
         
         if case==False:
-            print('The pulsation of this oscillation is :')
+            print('The pulsation of this oscillation is:')
             display(f_ret[0][0])
+            print('The phase shift is:')
             print(f_ret[0][1])
         return solution
         
